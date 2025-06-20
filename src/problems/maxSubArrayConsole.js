@@ -4,12 +4,20 @@ export const maxSubArrayConsole = (array) => {
   
   const stepsTable = [];
   
-  console.log(`Исходный массив: [${array.join(', ')}]\n`);
+  console.log(`\nИсходный массив: [${array.join(', ')}]\n`);
   
   for (let i = 1; i < array.length; i++) {
     const previousSum = currentSum;
     const newSum = previousSum + array[i];
-    const decision = array[i] > newSum ? "Новый подмассив" : "Продолжить";
+    let decision, reason;
+    
+    if (array[i] > newSum) {
+      decision = "Новый подмассив";
+      reason = `Текущий элемент (${array[i]}) > суммы предыдущих (${newSum})`;
+    } else {
+      decision = "Продолжить";
+      reason = `Сумма продолжения (${newSum}) ≥ текущего элемента (${array[i]})`;
+    }
     
     currentSum = Math.max(array[i], newSum);
     maxSum = Math.max(maxSum, currentSum);
@@ -17,15 +25,15 @@ export const maxSubArrayConsole = (array) => {
     stepsTable.push({
       Шаг: i,
       Элемент: array[i],
-      "Предыдущая сумма": previousSum,
+      "Пред. сумма": previousSum,
       "Новая сумма": newSum,
-      Решение: decision,
+      "Решение": `${decision} (${reason})`,
       "Текущая сумма": currentSum,
-      "Максимальная сумма": maxSum
-    });
+      "Макс. сумма": maxSum
+    }); 
   }
 
   console.table(stepsTable);
-  console.log(`\nФинальный результат: ${maxSum}`);
+  console.log(`\nФинальный результат: ${maxSum}\n`);
   return maxSum;
 };
