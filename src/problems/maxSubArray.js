@@ -1,4 +1,4 @@
-// 1. Максимальная сумма подмассива
+// 1. Максимальная сумма подмассива (алгоритм Кадане)
 export const maxSubArray = (array) => {
   let maxSum = array[0],
     currentSum = array[0];
